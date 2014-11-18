@@ -1,29 +1,14 @@
 // 在 Cloud code 里初始化 Express 框架
 var express = require('express');
+var common = require('cloud/common.js');
+
 var app = express();
 
-var crypto = require('crypto');
-
 // App 全局配置
-app.set('views','cloud/views');   // 设置模板目录
-//app.set('view engine', 'ejs');    // 设置 template 引擎
 app.use(express.bodyParser());    // 读取请求 body 的中间件
 
 APPID = AV.applicationId; // 你的应用 id
 MASTER_KEY = AV.masterKey; //你的应用 master key
-
-function sign(text, key) {
-  // Hmac-sha1 hex digest
-  return crypto.createHmac('sha1', key).update(text).digest('hex');
-}
-
-function getNonce(chars){
-  var d = [];
-  for (var i=0; i<chars; i++) {
-    d.push(parseInt(Math.random()*10));
-  }
-  return d.join('');
-}
 
 // 使用 Express 路由 API 服务 /hello 的 HTTP GET 请求
 app.post('/sign', function(request, response) {
@@ -48,7 +33,7 @@ app.post('/sign', function(request, response) {
   // UTC 时间戳，秒数
   var ts = parseInt(new Date().getTime() / 1000);
   // 随机字符串
-  var nonce = getNonce(5);
+  var nonce = common.getNonce(5);
 
   // 构建签名消息
   var msg = [APPID, peer_id, watch_ids_list.join(':'), ts, nonce].join(':');
@@ -57,7 +42,7 @@ app.post('/sign', function(request, response) {
   }
 
   // 签名
-  sig = sign(msg, MASTER_KEY)
+  sig = common.sign(msg, MASTER_KEY)
 
   // 回复：其中 nonce, timestamp, signature, watch_ids 是必要字段，需
   // 要客户端返回给实时通信服务
@@ -84,11 +69,11 @@ app.post('/group_sign', function(request, response) {
   group_peer_ids_list.sort();
 
   var ts = parseInt(new Date().getTime() / 1000);
-  var nonce = getNonce(5);
+  var nonce = common.getNonce(5);
 
   // 构建签名消息
   msg = [APPID, peer_id, group_id, group_peer_ids_list.join(':'), ts, nonce, action].join(':');
-  sig = sign(msg, MASTER_KEY);
+  sig = common.sign(msg, MASTER_KEY);
 
   // 返回结果，同上，需要的主要是 nonce, timestamp, signature,
   // group_peer_ids 这几个字段
