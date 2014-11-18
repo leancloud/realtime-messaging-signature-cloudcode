@@ -1,0 +1,8 @@
+{
+    "applicationName" : "nsun-test-signature",
+    "applicationId": "pyon3kvufmleg773ahop2i7zy0tz2rfjx5bh82n7h5jzuwjg",
+    "applicationKey": "13birq17z9l7i22gm4kaukytegxwkkvsoyxdiuvr08sd1ua7",
+    "global": {
+        "avVersion": "0.3.1"
+    }
+}
