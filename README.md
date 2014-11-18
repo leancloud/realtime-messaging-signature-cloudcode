@@ -13,7 +13,7 @@
 
 ## Web Hosting
 
-通过 web hosting，你可以直接编写服务器端接口，绑定域名后访问。
+通过 web hosting，你可以直接编写服务器端 http 接口，绑定域名后访问。
 
 ### POST /sign
 
