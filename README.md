@@ -4,7 +4,9 @@
 
 代码位于 `cloud/app.js` 中，你需要设置自己的应用 id 和 master key.
 
-你可以通过[云代码命令行工具](https://cn.avoscloud.com/docs/cloud_code_commandline.html)在本地运行这个项目。
+你可以通过[云代码命令行工
+具](https://cn.avoscloud.com/docs/cloud_code_commandline.html)在本地运
+行这个项目，同时别忘了修改 `config/global.json` 设置你的应用数据。
 
 ## Endpoints
 
