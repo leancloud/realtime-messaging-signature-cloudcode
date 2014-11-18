@@ -88,11 +88,20 @@ http://localhost:3000/avos 通过 UI 测试云函数。
 
 ### sign
 
-用于 Session open 和 watch 的签名，参数同上。
+用于 Session open 和 watch 的签名，参数如：
+
+```json
+{"self_id": "ak47", "watch_ids": ["desert_eagle", "AWG"]}
+```
 
 ### group_sign
 
-用于群组操作的签名，参数同上。
+用于群组操作的签名，参数如:
+
+```json
+{"self_id": "ak47", "group_id": "482222222",
+"group_peer_ids":["desert_eagle"], "action": "invite"}
+```
 
 ## Contact
 
