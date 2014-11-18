@@ -8,12 +8,12 @@
 
 ### POST /sign
 
-参数见代码注释。
+用于 Session open 和 watch 的签名。参数见[代码注释](https://github.com/leancloud/realtime-messaging-signature-cloudcode/blob/master/cloud/app.js)。
 
 ### POST /group_sign
 
-参数见代码注释。
+用于群组操作的签名。参数见[代码注释](https://github.com/leancloud/realtime-messaging-signature-cloudcode/blob/master/cloud/app.js)。
 
 ## Contact
 
-[sunng87](https://github.com/sunng87) nsun@leancloud.rocks
+* [sunng87](https://github.com/sunng87) nsun@leancloud.rocks
