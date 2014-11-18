@@ -10,7 +10,7 @@ app.set('views','cloud/views');   // 设置模板目录
 app.use(express.bodyParser());    // 读取请求 body 的中间件
 
 APPID = "your-app-id"; // 你的应用 id
-MASTER_KEY = "your-master-id"; //你的应用 master key
+MASTER_KEY = "your-master-key"; //你的应用 master key
 
 function sign(text, key) {
   // Hmac-sha1 hex digest
