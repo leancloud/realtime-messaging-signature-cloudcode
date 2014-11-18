@@ -10,9 +10,8 @@
 
 ### POST /sign
 
-用于 Session open 和 watch 的签名。参数说明见[代码注
-释
-](https://github.com/leancloud/realtime-messaging-signature-cloudcode/blob/master/cloud/app.js)
+用于 Session open 和 watch 的签名。参数说明见
+[代码注释](https://github.com/leancloud/realtime-messaging-signature-cloudcode/blob/master/cloud/app.js)
 。
 
 调用例子（使用 [httpie](http://httpie.org) 为例）：
@@ -42,9 +41,8 @@ X-Powered-By: Express
 
 ### POST /group_sign
 
-用于群组操作的签名。参数说明见[代码注
-释
-](https://github.com/leancloud/realtime-messaging-signature-cloudcode/blob/master/cloud/app.js)
+用于群组操作的签名。参数说明见
+[代码注释](https://github.com/leancloud/realtime-messaging-signature-cloudcode/blob/master/cloud/app.js)
 。
 
 ```
