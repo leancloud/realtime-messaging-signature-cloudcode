@@ -2,8 +2,6 @@
 
 本 demo 仅仅演示签名，并不包含实际业务逻辑。实际应用里你需要根据业务做相应的检查。
 
-代码位于 `cloud/app.js` 中，你需要设置自己的应用 id 和 master key.
-
 你可以通过[云代码命令行工
 具](https://cn.avoscloud.com/docs/cloud_code_commandline.html)在本地运
 行这个项目，同时别忘了修改 `config/global.json` 设置你的应用数据。
