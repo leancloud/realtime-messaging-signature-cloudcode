@@ -67,3 +67,17 @@ AV.Cloud.define("group_sign", function(request, response) {
                     "action": action, "msg": msg});
 
 });
+
+// 实时通信云代码 hook，消息到达
+AV.Cloud.define("_messageReceived", function(request, response) {
+  // 关于 request 中可用的参数可以查看文档
+  // https://leancloud.cn/docs/realtime.html#%E4%BA%91%E4%BB%A3%E7%A0%81-hook
+  response.success({});
+});
+
+// 实时通信云代码 hook，收件人离线
+AV.Cloud.define("_receiversOffline", function(request, response) {
+  // 关于 request 中可用的参数可以查看文档
+  // https://leancloud.cn/docs/realtime.html#%E4%BA%91%E4%BB%A3%E7%A0%81-hook
+  response.success({});
+});

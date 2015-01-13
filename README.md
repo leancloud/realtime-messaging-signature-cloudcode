@@ -105,6 +105,19 @@ http://localhost:3000/avos 通过 UI 测试云函数。
 "group_peer_ids":["desert_eagle"], "action": "invite"}
 ```
 
+## Hooks
+
+LeanCloud 的实时通信服务提供云代码 Hook 功能，用户可以利用云代码自定义
+业务流程如屏蔽某个用户，增加默认抄送用户等复杂功能，改变实时通信的默认
+流程。
+
+Hook 以云函数的形式定义在 `cloud/main.js` 里，目前包含：
+
+* `_messageReceived`
+* `_ReceiversOffline`
+
+详情请参考[实时通信云代码集成文档](https://leancloud.cn/docs/realtime.html#%E4%BA%91%E4%BB%A3%E7%A0%81-hook)。
+
 ## Contact
 
 * [sunng87](https://github.com/sunng87) nsun@leancloud.rocks
