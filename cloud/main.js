@@ -68,6 +68,38 @@ AV.Cloud.define("group_sign", function(request, response) {
 
 });
 
+AV.Cloud.define("signV2", function(request, response) {
+  var client_id = request.params['client_id'];  // 当前用户的client_id
+  // 用户要 操作 的 member ids， 数组
+  var member_ids = request.params['member_ids'] || [];
+  // 是否是 Super peer
+  var super_peer = request.params['sp'];
+
+  // 实际使用中，你可能还需要传额外的参数，帮助你验证用户的身份，在这
+  // 个例子里我们放行所有，仅演示签名
+
+  member_ids.sort();
+
+  // UTC 时间戳，秒数
+  var ts = parseInt(new Date().getTime() / 1000);
+  // 随机字符串
+  var nonce = common.getNonce(5);
+
+  // 构建签名消息
+  var msg = [APPID, client_id, member_ids.join(':'), ts, nonce].join(':');
+  if (super_peer) {
+    msg = msg + ':sp';
+  }
+
+  // 签名
+  sig = common.sign(msg, MASTER_KEY)
+
+  // 回复：其中 nonce, timestamp, signature, watch_ids 是必要字段，需
+  // 要客户端返回给实时通信服务
+  response.success({"nonce": nonce, "timestamp": ts, "signature": sig, "member_ids": member_ids,
+                    "sp": super_peer, "msg": msg});
+});
+
 // 实时通信云代码 hook，消息到达
 AV.Cloud.define("_messageReceived", function(request, response) {
   // 关于 request 中可用的参数可以查看文档
