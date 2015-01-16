@@ -26,7 +26,7 @@ LeanCloud 的实时通信服务采用签名方式和用户系统对接，当客�
 调用例子（使用 [httpie](http://httpie.org) 为例）：
 
 ```
- $ http  --form post http://localhost:3000/sign self_id=1 watch_ids=2:3:4
+ $ http post http://localhost:3000/sign self_id=1 watch_ids=2:3:4
 HTTP/1.1 200 OK
 Access-Control-Allow-Origin: *
 Connection: keep-alive
@@ -55,7 +55,7 @@ X-Powered-By: Express
 。
 
 ```
- $ http  --form post http://localhost:3000/group_sign self_id=1 group_peer_ids=2:3:4 group_id=4ad934r23bjhcas action=join
+ $ http post http://localhost:3000/group_sign self_id=1 group_peer_ids=2:3:4 group_id=4ad934r23bjhcas action=join
 HTTP/1.1 200 OK
 Access-Control-Allow-Origin: *
 Connection: keep-alive
