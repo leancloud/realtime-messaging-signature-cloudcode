@@ -76,5 +76,40 @@ app.post('/group_sign', function(request, response) {
            "action": action, "msg": msg});
 });
 
+app.post('/sign2', function(request, response){
+  var client_id = request.body['client_id'];
+  var conv_id = request.body['conv_id'];
+  var member_ids = request.body['members'] || [];
+  var action = request.body['action'];
+
+  var ts = parseInt(new Date().getTime() / 1000);
+  var nonce = common.getNonce(5);
+
+  var msg = [APPID, client_id];
+  if (conv_id) {
+    msg.push(conv_id);
+  }
+
+  if (member_ids.length) {
+    member_ids.sort();
+    msg.push(member_ids.join(':'));
+  } else {
+    msg.push('');
+  }
+
+  console.log(1);
+  msg.push(ts);
+  msg.push(nonce);
+  if (action) {
+    msg.push(action);
+  }
+  msg = msg.join(':');
+
+  console.log(2);
+  var sig = common.sign(msg, MASTER_KEY);
+  response.set({'Access-Control-Allow-Origin': request.get('Origin') || "*"})
+    .json({"nonce": nonce, "timestamp": ts, "signature": sig, "msg": msg});
+});
+
 // 最后，必须有这行代码来使 express 响应 HTTP 请求
 app.listen();
