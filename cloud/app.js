@@ -6,6 +6,12 @@ var app = express();
 
 // App 全局配置
 app.use(express.bodyParser());    // 读取请求 body 的中间件
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "access-control-allow-headers,access-control-allow-methods,access-control-allow-origin,content-type");
+  res.header("Access-Control-Allow-Methods", "POST");
+  next();
+});
 
 APPID = AV.applicationId; // 你的应用 id
 MASTER_KEY = AV.masterKey; //你的应用 master key
@@ -97,7 +103,6 @@ app.post('/sign2', function(request, response){
     msg.push('');
   }
 
-  console.log(1);
   msg.push(ts);
   msg.push(nonce);
   if (action) {
@@ -105,7 +110,6 @@ app.post('/sign2', function(request, response){
   }
   msg = msg.join(':');
 
-  console.log(2);
   var sig = common.sign(msg, MASTER_KEY);
   response.set({'Access-Control-Allow-Origin': request.get('Origin') || "*"})
     .json({"nonce": nonce, "timestamp": ts, "signature": sig, "msg": msg});
