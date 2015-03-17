@@ -79,6 +79,49 @@ X-Powered-By: Express
 }
 ```
 
+### POST /sign2
+
+用于实时通信 v2 版本的所有签名。
+
+#### Session Open
+
+发送参数：
+
+```
+{client_id: ...}
+```
+
+#### 创建 Conversation
+
+发送参数：
+
+```
+{client_id: ...,
+ members: [...]}
+```
+
+#### 向 Conversation 添加成员
+
+发送参数：
+
+```
+{client_id: ...,
+ members: [...],
+ conv_id: ...,
+ action: 'invite'}
+```
+
+#### 从 Conversation 中删除成员
+
+发送参数：
+
+```
+{client_id: ...,
+ members: [...],
+ conv_id: ...,
+ action: 'kick'}
+```
+
 ## 云函数
 
 在开发环境可以通过 avoscloud 命令行工具启动服务后，打开
@@ -104,6 +147,10 @@ http://localhost:3000/avos 通过 UI 测试云函数。
 {"self_id": "ak47", "group_id": "482222222",
 "group_peer_ids":["desert_eagle"], "action": "invite"}
 ```
+
+### sign2
+
+说明见 web hosting 部分相应的内容。
 
 ## Hooks
 
