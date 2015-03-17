@@ -40,7 +40,7 @@ app.post('/sign', function(request, response) {
 
   // 回复：其中 nonce, timestamp, signature, watch_ids 是必要字段，需
   // 要客户端返回给实时通信服务
-  response.set({'Access-Control-Allow-Origin': request.get('Origin') || "*"})
+  response.set({'Access-Control-Allow-Origin': request.headers.get('Origin') || "*"})
     .json({"nonce": nonce, "timestamp": ts, "signature": sig, "watch_ids": watch_ids,
            "sp": super_peer, "msg": msg});
 });
