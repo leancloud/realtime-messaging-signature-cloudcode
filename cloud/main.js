@@ -68,6 +68,7 @@ AV.Cloud.define("group_sign", function(request, response) {
 
 });
 
+//返回 V2 聊天 SDK 登陆服务器的签名
 AV.Cloud.define("connect", function(request, response) {
   var client_id = request.params['client_id'];  // 当前用户的client_id
   var super_peer = request.params['sp'];
@@ -93,7 +94,7 @@ AV.Cloud.define("connect", function(request, response) {
   response.success({"nonce": nonce, "timestamp": ts, "signature": sig,
                     "sp": super_peer, "msg": msg});
 });
-
+//返回对话成员管理的签名
 AV.Cloud.define("actionOnCoversation", function (request, response) {
     var conversationId = request.params['conversation_id'];
     var client_id = request.params['client_id'];
@@ -124,6 +125,7 @@ AV.Cloud.define("actionOnCoversation", function (request, response) {
 
 });
 
+//获取创建对话的签名
 AV.Cloud.define("startConversation", function (request, response) {
      var client_id = request.params['client_id'];
      var memberIds = request.params['member_ids'] || [];
@@ -139,9 +141,29 @@ AV.Cloud.define("startConversation", function (request, response) {
      sig = common.sign(msg, MASTER_KEY);
 
      // 返回结果，同上，需要的主要是 nonce, timestamp, signature,
-     // group_peer_ids 这几个字段
+     // memberIds 这几个字段
      response.success({ "nonce": nonce, "timestamp": ts, "signature": sig,
         "memberIds": memberIds,"msg": msg});
+});
+
+//获取聊天历史记录的签名
+AV.Cloud.define("queryHistory", function (request, response) {
+     var client_id = request.params['client_id'];
+     var convId = request.params['convid'] || [];
+
+     // 排序
+     memberIds.sort();
+
+     var ts = parseInt(new Date().getTime() / 1000);
+     var nonce = common.getNonce(5);
+
+     msg = [APPID, client_id, convId, ts, nonce].join(':');
+  
+     sig = common.sign(msg, MASTER_KEY);
+
+     // 返回结果，同上，需要的主要是 nonce, timestamp, signature,
+     response.success({ "nonce": nonce, "timestamp": ts, "signature": sig,
+        "convId": convId,"msg": msg});
 });
 
 // 实时通信云代码 hook，消息到达

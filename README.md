@@ -26,7 +26,7 @@ LeanCloud 的实时通信服务采用签名方式和用户系统对接，当客�
 调用例子（使用 [httpie](http://httpie.org) 为例）：
 
 ```
- $ http  --form post http://localhost:3000/sign self_id=1 watch_ids=2:3:4
+ $ http post http://localhost:3000/sign self_id=1 watch_ids=2:3:4
 HTTP/1.1 200 OK
 Access-Control-Allow-Origin: *
 Connection: keep-alive
@@ -55,7 +55,7 @@ X-Powered-By: Express
 。
 
 ```
- $ http  --form post http://localhost:3000/group_sign self_id=1 group_peer_ids=2:3:4 group_id=4ad934r23bjhcas action=join
+ $ http post http://localhost:3000/group_sign self_id=1 group_peer_ids=2:3:4 group_id=4ad934r23bjhcas action=join
 HTTP/1.1 200 OK
 Access-Control-Allow-Origin: *
 Connection: keep-alive
@@ -77,6 +77,49 @@ X-Powered-By: Express
     "signature": "d31efcdea5d74db8d510ce0e9a4833e9bbc205e3",
     "timestamp": 1416290879
 }
+```
+
+### POST /sign2
+
+用于实时通信 v2 版本的所有签名。
+
+#### Session Open
+
+发送参数：
+
+```
+{client_id: ...}
+```
+
+#### 创建 Conversation
+
+发送参数：
+
+```
+{client_id: ...,
+ members: [...]}
+```
+
+#### 向 Conversation 添加成员
+
+发送参数：
+
+```
+{client_id: ...,
+ members: [...],
+ conv_id: ...,
+ action: 'invite'}
+```
+
+#### 从 Conversation 中删除成员
+
+发送参数：
+
+```
+{client_id: ...,
+ members: [...],
+ conv_id: ...,
+ action: 'kick'}
 ```
 
 ## 云函数
@@ -104,6 +147,10 @@ http://localhost:3000/avos 通过 UI 测试云函数。
 {"self_id": "ak47", "group_id": "482222222",
 "group_peer_ids":["desert_eagle"], "action": "invite"}
 ```
+
+### sign2
+
+说明见 web hosting 部分相应的内容。
 
 ## Hooks
 
