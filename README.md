@@ -1,6 +1,6 @@
 # LeanCloud 实时通信云代码签名 Demo
 
-LeanCloud 的实时通信服务采用签名方式和用户系统对接，当客户端进行涉及权限、认证相关的操作时，客户端需要首先像用户系统发起请求获得一个签名，再把签名发送到 LeanCloud 实时通信服务，从而帮助 LeanCloud 确认请求是否有效。其机制与 OAuth 1.0 类似。目前签名使用 Hmac + sha1 算法，十六进制输出，签名的 key 为应用的 Master Key，签名内容按请求不同而各异。更多细节请[参考实时通信文档](https://cn.avoscloud.com/docs/realtime.html#%E6%9D%83%E9%99%90%E5%92%8C%E8%AE%A4%E8%AF%81)。
+LeanCloud 的实时通信服务采用签名方式和用户系统对接，当客户端进行涉及权限、认证相关的操作时，客户端需要首先向用户系统发起请求获得一个签名，再把签名发送到 LeanCloud 实时通信服务，从而帮助 LeanCloud 确认请求是否有效。其机制与 OAuth 1.0 类似。目前签名使用 Hmac + sha1 算法，十六进制输出，签名的 key 为应用的 Master Key，签名内容按请求不同而各异。更多细节请[参考实时通信文档](https://cn.avoscloud.com/docs/realtime.html#%E6%9D%83%E9%99%90%E5%92%8C%E8%AE%A4%E8%AF%81)。
 
 本 demo 仅仅演示签名，并不包含实际业务逻辑。实际应用里你需要根据业务做
 相应的检查。这个 demo 同时包含了 [web hosting](https://cn.avoscloud.com/docs/cloud_code_guide.html#web-hosting) 和
