@@ -1,7 +1,7 @@
 {
-    "applicationName" : "YOUR-APP-NAME-HERE",
-    "applicationId": "YOUR-APP-ID-HERE",
-    "applicationKey": "YOUR-APP-KEY-HERE",
+    "applicationName" : "Signatire sapmle",
+    "applicationId": "p2bpmgci83a13kq3ygomaej3er0yvyd36dncipeg02zinte9",
+    "applicationKey": "6dpj2igbml9vm5ttt62iythg58kyoi8z93facxbtce11pzmg",
     "global": {
         "avVersion": "0.3.1"
     }

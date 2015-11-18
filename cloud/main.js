@@ -68,36 +68,102 @@ AV.Cloud.define("group_sign", function(request, response) {
 
 });
 
-AV.Cloud.define('sign2', function(request, response){
-  var client_id = request.params['client_id'];
-  var conv_id = request.params['conv_id'];
-  var member_ids = request.params['members'] || [];
-  var action = request.params['action'];
+//返回 V2 聊天 SDK 登陆服务器的签名
+AV.Cloud.define("connect", function(request, response) {
+  var client_id = request.params['client_id'];  // 当前用户的client_id
+  var super_peer = request.params['sp'];
+  // 实际使用中，你可能还需要传额外的参数，帮助你验证用户的身份，在这
+  // 个例子里我们放行所有，仅演示签名
 
+  // UTC 时间戳，秒数
   var ts = parseInt(new Date().getTime() / 1000);
+  // 随机字符串
   var nonce = common.getNonce(5);
 
-  var msg = [APPID, client_id];
-  if (conv_id) {
-    msg.push(conv_id);
+  // 构建签名消息
+  var msg = [APPID, client_id, '', ts, nonce].join(':');
+  if (super_peer) {
+    msg = msg + ':sp';
   }
 
-  if (member_ids.length) {
-    member_ids.sort();
-    msg.push(member_ids.join(':'));
-  } else {
-    msg.push('');
-  }
+  // 签名
+  sig = common.sign(msg, MASTER_KEY)
 
-  msg.push(ts);
-  msg.push(nonce);
-  if (action) {
-    msg.push(action);
-  }
-  msg = msg.join(':');
+  // 回复：其中 nonce, timestamp, signature, watch_ids 是必要字段，需
+  // 要客户端返回给实时通信服务
+  response.success({"nonce": nonce, "timestamp": ts, "signature": sig,
+                    "sp": super_peer, "msg": msg});
+});
+//返回对话成员管理的签名
+AV.Cloud.define("actionOnCoversation", function (request, response) {
+    var conversationId = request.params['conversation_id'];
+    var client_id = request.params['client_id'];
+    var memberIds = request.params['member_ids'] || [];
+    var action = request.params['action'];
 
-  var sig = common.sign(msg, MASTER_KEY);
-  response.success({"nonce": nonce, "timestamp": ts, "signature": sig, "msg": msg});
+    // 排序
+    memberIds.sort();
+
+    var ts = parseInt(new Date().getTime() / 1000);
+    var nonce = common.getNonce(5);
+
+
+    // 构建签名消息
+    
+    msg = [APPID, client_id, conversationId, memberIds.join(':'), ts, nonce, action].join(':');
+  
+    sig = common.sign(msg, MASTER_KEY);
+
+    // 返回结果，同上，需要的主要是 nonce, timestamp, signature,
+    // group_peer_ids 这几个字段
+    response.success({ "nonce": nonce, "timestamp": ts, "signature": sig,
+        "memberIds": memberIds, "conversationId": conversationId,
+        "action": action, "msg": msg});
+    //以上返回的签名是一个 合法 的签名，合法的意思是 client_id 可以 对 conversationId 进行 action 的操作
+    //也就是签名这项操作就是为了鉴权，为了提供一个 Hook 给开发者去管理 Client 是否 对某一个 Conversation 有 某一个 Action 的操作权限，如果有就按照如上的代码正确返回
+    //如果没有就返回一个错误的签名，错误的签名可以是任何字符串
+
+});
+
+//获取创建对话的签名
+AV.Cloud.define("startConversation", function (request, response) {
+     var client_id = request.params['client_id'];
+     var memberIds = request.params['member_ids'] || [];
+
+     // 排序
+     memberIds.sort();
+
+     var ts = parseInt(new Date().getTime() / 1000);
+     var nonce = common.getNonce(5);
+
+     msg = [APPID, client_id, memberIds.join(':'), ts, nonce].join(':');
+  
+     sig = common.sign(msg, MASTER_KEY);
+
+     // 返回结果，同上，需要的主要是 nonce, timestamp, signature,
+     // memberIds 这几个字段
+     response.success({ "nonce": nonce, "timestamp": ts, "signature": sig,
+        "memberIds": memberIds,"msg": msg});
+});
+
+//获取聊天历史记录的签名
+AV.Cloud.define("queryHistory", function (request, response) {
+     var client_id = request.params['client_id'];
+     var convId = request.params['convid'] || [];
+
+     // 排序
+     memberIds.sort();
+
+     var ts = parseInt(new Date().getTime() / 1000);
+     var nonce = common.getNonce(5);
+
+     msg = [APPID, client_id, convId, ts, nonce].join(':');
+  
+     sig = common.sign(msg, MASTER_KEY);
+
+     // 返回结果，同上，需要的主要是 nonce, timestamp, signature,
+     response.success({ "nonce": nonce, "timestamp": ts, "signature": sig,
+        "convId": convId,"msg": msg});
 });
 
 // 实时通信云代码 hook，消息到达
