@@ -11,11 +11,20 @@ LeanCloud 的实时通信服务采用签名方式和用户系统对接，当客�
 
 你可以通过[云代码命令行工
 具](https://cn.avoscloud.com/docs/cloud_code_commandline.html)在本地运
-行这个项目
+行这个项目：
+
+```
+avoscloud
+```
 
 ## Web Hosting
 
-通过 web hosting，你可以直接编写服务器端 http 接口，绑定域名后访问。
+通过 web hosting，你可以直接编写服务器端 http 接口，绑定域名后访问。假
+设您在本地直接运行，可以通过下面的命令调用（这里使用的命令行 HTTP 客户端是 [httpie](http://httpie.org)）：
+
+```
+echo '{"client_id":"123"}' | http post http://localhost:3000/sign2
+```
 
 ### POST /sign2
 
