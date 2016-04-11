@@ -21,7 +21,7 @@ echo '{"client_id":"123"}' | http post http://localhost:3000/sign2
 
 ### POST /sign2
 
-用于实时通信的所有签名。发送的 Content-Type 设置为 `application/json`，请求的 body 是一个对象。
+用于实时通信的所有签名。发送的 Content-Type 设置为 `application/json`，请求的 body 是一个 JSON 对象。
 
 #### Session Open
 
