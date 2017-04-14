@@ -1,7 +1,4 @@
 node_modules
-start.sh
-
-# VIM
-*~
-*.swp
-.avoscloud/
+npm-debug.log
+.avoscloud
+.leancloud
