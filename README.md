@@ -1,3 +1,10 @@
+# 注意
+
+该项目已被归档，后续将不再维护，请在 [leancloud/leanengine-nodejs-demos](https://github.com/leancloud/leanengine-nodejs-demos/blob/master/functions/rtm-signature.js) 中查看有关实时通讯签名的最新示例。
+
+<details>
+<summary>以下为原 README 内容</summary>
+  
 # LeanCloud 实时通信云引擎签名 Demo
 
 ## 一键部署
@@ -91,3 +98,5 @@ echo '{"client_id":"123"}' | http post http://localhost:3000/sign2
 ## 联系
 
 * [sunng87](https://github.com/sunng87) nsun@leancloud.rocks
+
+</details>
